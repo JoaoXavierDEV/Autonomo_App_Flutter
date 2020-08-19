@@ -44,7 +44,7 @@ class _TabNavBarState extends State<TabNavBar>
       //
       statusBarColor: Colors.transparent,
       // statusBarColor: azulMtEscuro,
-      statusBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
       statusBarBrightness: Brightness.light,
       // statusBarBrightness: Brightness.dark, only iphone
     ));
@@ -58,6 +58,7 @@ class _TabNavBarState extends State<TabNavBar>
 
   List<Widget> _tabList = [
     HomePage(),
+
     TestesLayout(),
     //Search(),
     ProfileView(),
@@ -72,6 +73,7 @@ class _TabNavBarState extends State<TabNavBar>
         //initialIndex: 2,
         length: _tabList.length,
         child: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
           controller: tabController,
           children: _tabList,
         ),

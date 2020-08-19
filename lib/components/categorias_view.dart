@@ -1,5 +1,3 @@
-// import 'package:autonomo_app/pages/home/home_page.dart';
-// import 'package:autonomo_app/components/bottomNavigationBar.dart';
 import 'package:autonomo_app/models/nomeCat_Model.dart';
 import 'package:autonomo_app/services/NomeCat_service.dart';
 import 'package:flutter/material.dart';
@@ -10,15 +8,6 @@ final temas = new Temas();
 class CategoriasView extends StatefulWidget {
   @override
   _CategoriasViewState createState() => _CategoriasViewState();
-}
-
-getNomeCat() {
-  dynamic aqui = NomeCatService().getCategorias;
-  NomeCatModel recebeNomes = aqui;
-  recebeNomes.campos.forEach((key, value) {
-    print(key);
-  });
-  //return recebeNomes.campos;
 }
 
 class _CategoriasViewState extends State<CategoriasView> {
@@ -40,73 +29,109 @@ class _CategoriasViewState extends State<CategoriasView> {
 
             SizedBox(
               height: 200,
-              child: GridView.count(
-                padding: const EdgeInsets.all(8),
-                scrollDirection: Axis.horizontal,
-                crossAxisCount: 2,
-                children: List.generate(
-                  5,
-                  (index) {
-                    return Container(
-                      //color: Colors.redAccent,
-                      //  height: 120,
-                      //  width: 120,
-                      child: Column(
-                        children: <Widget>[
-                          Card(
-                            color: Theme.of(context).buttonColor,
-                            elevation: 4,
-                            child: InkWell(
-                              splashColor: Colors.blue[900],
-                              onTap: () {},
-                              child: Column(
-                                children: <Widget>[
-                                  SizedBox(
-                                    height: 80,
-                                    width: 80,
-                                    child: Container(
-                                      child: Stack(
-                                        children: <Widget>[
-                                          Positioned(
-                                            bottom: 32,
-                                            left: 22,
-                                            child: Icon(
-                                              Icons.apps,
-                                              color: Colors.white,
-                                              size: 34,
+              child: StreamBuilder(
+                  stream: NomeCatService().getCategorias,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      NomeCatModel result = snapshot.data;
+                      // print(result.campos);
+                      List<String> newList = new List<String>();
+                      String novaKey;
+                      String outraKey;
+                      result.campos.forEach((String key, valueKey) => {
+                            if (key.length >= 7)
+                              {
+                                novaKey = key.substring(0, 6),
+                                outraKey = novaKey + '.',
+                                // print(novaKey),
+                                newList.add(outraKey),
+                              }
+                            else
+                              {
+                                newList.add(key),
+                              }
+                            // print(newList),
+                          });
+                      // print("Categorias - $newList");
+                      //for (var resultado in newList)
+                      return GridView.count(
+                        padding: const EdgeInsets.all(8),
+                        scrollDirection: Axis.horizontal,
+                        crossAxisCount: 2,
+                        // childAspectRatio: 1.0,
+                        // mainAxisSpacing: 4.0,
+                        //crossAxisSpacing: 4.0,
+                        children: List.generate(newList.length, (index) {
+                          return Container(
+                            // color: Colors.redAccent,
+                            //   height: 120,
+                            // width: 120,
+                            child: Column(
+                              children: <Widget>[
+                                Card(
+                                  color: Theme.of(context).buttonColor,
+                                  elevation: 0,
+                                  child: InkWell(
+                                    splashColor: Colors.blue[900],
+                                    onTap: () {},
+                                    child: Column(
+                                      children: <Widget>[
+                                        SizedBox(
+                                          height: 80,
+                                          width: 80,
+                                          child: Container(
+                                            child: Stack(
+                                              alignment: Alignment.center,
+                                              children: <Widget>[
+                                                Positioned(
+                                                  top: 10,
+                                                  //left: 0,
+                                                  child: Icon(
+                                                    Icons.apps,
+                                                    color: Colors.white,
+                                                    size: 38,
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  top: 52,
+                                                  child: FittedBox(
+                                                    //fit: BoxFit.cover,
+                                                    /*  alignment: Alignment
+                                                            .centerRight,*/
+                                                    child: Text(
+                                                      newList[index]
+                                                          .toString()
+                                                          .toUpperCase(),
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                        fontSize: 12,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
                                             ),
                                           ),
-                                          Positioned(
-                                            bottom: 12,
-                                            left: 16,
-                                            child: FittedBox(
-                                              // fit: BoxFit.scaleDown,
-                                              // alignment: Alignment.center,
-                                              child: Text(
-                                                "items",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 18,
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                        )
+                                      ],
                                     ),
-                                  )
-                                ],
-                              ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
+                          );
+                        }),
+                      );
+                    } else {
+                      return Container(
+                        child: Text('data'),
+                      );
+                    }
+                  }),
             ),
 
 // vieew

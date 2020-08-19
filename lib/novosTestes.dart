@@ -1,9 +1,16 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:autonomo_app/components/chip.dart';
 import 'package:flutter/material.dart';
+
+List<String> europeanCountries = [
+  'subCategorias',
+  'subCategorias',
+  'subCategorias',
+  'subCategorias',
+  'subCategorias',
+  'subCategorias',
+  'subCategorias',
+  'subCategorias'
+];
 
 class NovosTestes extends StatelessWidget {
   @override

@@ -15,9 +15,9 @@ class Whapper extends StatelessWidget {
     final user = Provider.of<User>(context);
 
     if (user == null) {
-      return TabNavBar();
+      return LoginPage();
     } else {
-      return TabNavBar();
+      return BarraDeNavegacao();
     }
   }
 }

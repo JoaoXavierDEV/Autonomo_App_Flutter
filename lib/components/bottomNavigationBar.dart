@@ -1,6 +1,8 @@
+import 'package:autonomo_app/novosTestes.dart';
 import 'package:autonomo_app/pages/home/home_page.dart';
 import 'package:autonomo_app/pages/login/signin/login_page.dart';
 import 'package:autonomo_app/pages/login/signup/profile_view.dart';
+import 'package:autonomo_app/testes.dart';
 import 'package:flutter/material.dart';
 import 'package:autonomo_app/components/temas/temas.dart';
 
@@ -36,12 +38,14 @@ class BarraDeNavegacao extends StatefulWidget {
 
 class _BarraDeNavegacaoState extends State<BarraDeNavegacao>
     with SingleTickerProviderStateMixin {
-  int _currentIndex = 0;
+  int _currentIndex = 2;
 
   List<Widget> _tabList = [
-    ProfileView(),
     HomePage(),
-    LoginPage(),
+    NovosTestes(),
+    //TestesLayout(),
+    //LoginPage(),
+    ProfileView(),
   ];
   TabController _tabController;
   @override
@@ -60,11 +64,7 @@ class _BarraDeNavegacaoState extends State<BarraDeNavegacao>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TabBarView(
-        physics: NeverScrollableScrollPhysics(),
-        controller: _tabController,
-        children: _tabList,
-      ),
+      body: _tabList[_currentIndex],
       bottomNavigationBar: Container(
         height: 65,
         child: BottomNavigationBar(
@@ -81,8 +81,8 @@ class _BarraDeNavegacaoState extends State<BarraDeNavegacao>
               title: Text('Home'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.apps),
-              title: Text('Serviços'),
+              icon: Icon(Icons.search),
+              title: Text('Buscar'),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
@@ -90,9 +90,9 @@ class _BarraDeNavegacaoState extends State<BarraDeNavegacao>
             )
           ],
           type: BottomNavigationBarType.fixed,
-          backgroundColor: niceBlue,
+          backgroundColor: azulMtEscuro,
           selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.blue[400],
+          unselectedItemColor: Colors.blueGrey[400],
         ),
       ),
     );

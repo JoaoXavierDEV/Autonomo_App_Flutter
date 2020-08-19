@@ -42,49 +42,15 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           scaffoldBackgroundColor: whiteColor,
-          primaryColor: Colors.blue[100], // podem ser sobscritas
+          primaryColor: Colors.blue[50], // podem ser sobscritas
           accentColor: Colors.white, //
           buttonColor: azulMtEscuro,
           primarySwatch: Colors.blue,
           brightness: Brightness.light,
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          /*textTheme: TextTheme(
-            headline1: GoogleFonts.openSans(
-              fontSize: 95,
-              fontWeight: FontWeight.w300,
-              letterSpacing: -1.5,
-            ),
-            headline2: GoogleFonts.openSans(
-                fontSize: 59, fontWeight: FontWeight.w300, letterSpacing: -0.5),
-            headline3:
-                GoogleFonts.openSans(fontSize: 48, fontWeight: FontWeight.w400),
-            headline4: GoogleFonts.openSans(
-                fontSize: 34, fontWeight: FontWeight.w400, letterSpacing: 0.25),
-            headline5:
-                GoogleFonts.openSans(fontSize: 24, fontWeight: FontWeight.w400),
-            headline6: GoogleFonts.openSans(
-                fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0.15),
-            subtitle1: GoogleFonts.openSans(
-                fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.15),
-            subtitle2: GoogleFonts.openSans(
-                fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
-            bodyText1: GoogleFonts.openSans(
-                fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5),
-            bodyText2: GoogleFonts.openSans(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0.25,
-                color: Colors.grey[800]),
-            button: GoogleFonts.openSans(
-                fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 1.25),
-            caption: GoogleFonts.openSans(
-                fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
-            overline: GoogleFonts.openSans(
-                fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
-          ),*/
         ),
         darkTheme: ThemeData(
-          scaffoldBackgroundColor: azulMtEscuro,
+          //scaffoldBackgroundColor: azulMtEscuro,
           buttonColor: Colors.blueGrey[800],
 
           primaryColor: Color(0xff080626), // podem ser sobscritas
@@ -93,40 +59,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           brightness: Brightness.dark,
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          textTheme: TextTheme(
-            headline1: GoogleFonts.openSans(
-              fontSize: 95,
-              fontWeight: FontWeight.w300,
-              letterSpacing: -1.5,
-            ),
-            headline2: GoogleFonts.openSans(
-                fontSize: 59, fontWeight: FontWeight.w300, letterSpacing: -0.5),
-            headline3:
-                GoogleFonts.openSans(fontSize: 48, fontWeight: FontWeight.w400),
-            headline4: GoogleFonts.openSans(
-                fontSize: 34, fontWeight: FontWeight.w400, letterSpacing: 0.25),
-            headline5:
-                GoogleFonts.openSans(fontSize: 24, fontWeight: FontWeight.w400),
-            headline6: GoogleFonts.openSans(
-                fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0.15),
-            subtitle1: GoogleFonts.openSans(
-                fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.15),
-            subtitle2: GoogleFonts.openSans(
-                fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
-            bodyText1: GoogleFonts.openSans(
-                fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5),
-            bodyText2: GoogleFonts.openSans(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0.25,
-                color: Colors.grey[800]),
-            button: GoogleFonts.openSans(
-                fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 1.25),
-            caption: GoogleFonts.openSans(
-                fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
-            overline: GoogleFonts.openSans(
-                fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
-          ),
         ),
         themeMode: ThemeMode.light,
         // home:  Whapper(),
