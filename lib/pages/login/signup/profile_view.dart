@@ -49,8 +49,6 @@ class _ProfileViewState extends State<ProfileView> {
                   txtProfissao,
                   txtBio,
                 );
-                print('Salvar');
-                print(txtEndereco);
               },
               label: Text(
                 'Salvar',
@@ -210,9 +208,7 @@ class _ProfileViewState extends State<ProfileView> {
                                               BorderRadius.circular(18.0),
                                         ),
                                         onPressed: () {
-                                          print("sair");
                                           _auth.SignOut();
-                                          showAlertDialog1(context);
                                         },
                                         color: Colors.red[700],
                                         textColor: Colors.white,

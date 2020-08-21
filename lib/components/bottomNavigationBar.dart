@@ -14,12 +14,14 @@ showAlertDialog1(BuildContext context) {
   // configura o button
   Widget okButton = FlatButton(
     child: Text("OK"),
-    onPressed: () {},
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
   );
   // configura o  AlertDialog
   AlertDialog alerta = AlertDialog(
-    title: Text("Promoção Imperdivel"),
-    content: Text("Não perca a promoção."),
+    title: Text("Login"),
+    content: Text("Faça login para usar o app"),
     actions: [
       okButton,
     ],
