@@ -18,37 +18,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
-    getCurrentStatusNavigationBarColor();
   }
 
   final AuthService _auth = AuthService();
   final temas = new Temas();
-
-  getCurrentStatusNavigationBarColor() {
-    var temaDark = WidgetsBinding.instance.window.platformBrightness;
-    //var temaDark = Theme.of(context).primaryColorBrightness;
-    if (temaDark.toString() == 'Brightness.dark') {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.light,
-        systemNavigationBarColor: azulMtEscuro,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ));
-      print("TemaDark? " + temaDark.toString());
-      print('dark');
-    } else {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: azulMtEscuro,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ));
-      print("TemaDark? " + temaDark.toString());
-      print('ligth');
-    }
-  }
 
   showAlertDialog1(BuildContext context) {
     // configura o button
@@ -104,7 +77,7 @@ class _HomePageState extends State<HomePage> {
             ),
             onPressed: () async {
               await _auth.SignOut();
-              // await showAlertDialog1(context);
+              await showAlertDialog1(context);
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
