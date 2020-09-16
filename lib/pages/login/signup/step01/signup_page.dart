@@ -112,73 +112,123 @@ class _SignupPageState extends State<SignupPage> {
                         {setState(() => _currentNome = value)},
                   ),
                 ),
-                TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: "E-mail",
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.auto,
+                      labelText: "Email",
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 20,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue, width: 3.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).dividerColor, width: 1.0),
+                      ),
+                      // fillColor: Colors.white,
+                      prefixIcon: Icon(Icons.email),
+                    ),
+                    style: TextStyle(
                       fontSize: 20,
                     ),
-                    prefixIcon: Icon(Icons.alternate_email),
+                    validator: (value) =>
+                        value.isEmpty ? 'Insira um email' : null,
+                    onChanged: (value) {
+                      setState(() => email = value);
+                    },
                   ),
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                  validator: (value) =>
-                      value.isEmpty ? 'Insira um email' : null,
-                  onChanged: (value) {
-                    setState(() => email = value);
-                  },
                 ),
-                TextFormField(
-                  keyboardType: TextInputType.text,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: "Senha",
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: TextFormField(
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.auto,
+                      labelText: "Senha",
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 20,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue, width: 3.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).dividerColor, width: 1.0),
+                      ),
+                      // fillColor: Colors.white,
+                      prefixIcon: Icon(Icons.vpn_key),
+                    ),
+                    style: TextStyle(
                       fontSize: 20,
                     ),
+                    validator: (value) =>
+                        value.length < 6 ? 'A senha é muito curta' : null,
+                    onChanged: (value) {
+                      setState(() => password = value);
+                    },
                   ),
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                  validator: (value) =>
-                      value.length < 6 ? 'A senha é muito curta' : null,
-                  onChanged: (value) {
-                    setState(() => password = value);
-                  },
                 ),
-                TextFormField(
-                  validator: (value) =>
-                      CPFValidator.isValid(value) ? null : 'CPF inválido',
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: "CPF",
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: TextFormField(
+                    validator: (value) =>
+                        CPFValidator.isValid(value) ? null : 'CPF inválido',
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.auto,
+                      labelText: "CPF",
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 20,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue, width: 3.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).dividerColor, width: 1.0),
+                      ),
+                      // fillColor: Colors.white,
+                      prefixIcon: Icon(Icons.assignment_ind),
+                    ),
+                    style: TextStyle(
                       fontSize: 20,
                     ),
+                    onChanged: (value) => {setState(() => _currentcpf = value)},
                   ),
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                  onChanged: (value) => {setState(() => _currentcpf = value)},
                 ),
-                TextFormField(
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                    labelText: "Bio",
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20,
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: TextFormField(
+                    style: Theme.of(context).textTheme.bodyText2,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 5,
+                    decoration: InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.auto,
+                      labelText: "Descrição",
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 20,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue, width: 3.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).dividerColor, width: 1.0),
+                      ),
+                      // fillColor: Colors.white,
+                      prefixIcon: Icon(Icons.text_fields),
                     ),
+                    onChanged: (value) => {setState(() => _currentBio = value)},
                   ),
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                  onChanged: (value) => {setState(() => _currentBio = value)},
                 ),
                 FlatButton.icon(
                   color: Colors.red,
@@ -191,16 +241,6 @@ class _SignupPageState extends State<SignupPage> {
                     "Avançar",
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
-
-                  /*   child: Text(
-                    "Avançar ",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),*/
                   onPressed: () async {
                     /*   if (_formKey.currentState.validate()) {
                             dynamic user = await _auth
