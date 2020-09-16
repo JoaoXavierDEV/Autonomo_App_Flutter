@@ -1,6 +1,7 @@
 class NomeCatModel {
-  //final Map<String, dynamic> campos;
-  final dynamic campos;
+  //Map<String, dynamic> campos;
+  //Map<String, List> campos;
+  dynamic campos;
   NomeCatModel({
     this.campos,
   });

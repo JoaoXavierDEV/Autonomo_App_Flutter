@@ -2,7 +2,7 @@ import 'package:autonomo_app/components/pesquisar.dart';
 import 'package:autonomo_app/components/temas/temas.dart';
 import 'package:autonomo_app/pages/home/home_page.dart';
 import 'package:autonomo_app/pages/login/signin/login_page.dart';
-import 'package:autonomo_app/pages/login/signup/profile_view.dart';
+import 'package:autonomo_app/pages/login/profile/profile_view.dart';
 import 'package:autonomo_app/pages/search/search.dart';
 import 'package:autonomo_app/testes.dart';
 import 'package:flutter/material.dart';

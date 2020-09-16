@@ -25,7 +25,6 @@ class _CategoriasViewState extends State<CategoriasView> {
               child: Text("Categorias",
                   style: Theme.of(context).textTheme.headline6),
             ),
-// view
 
             SizedBox(
               height: 200,
@@ -96,12 +95,13 @@ class _CategoriasViewState extends State<CategoriasView> {
                                                   top: 52,
                                                   child: FittedBox(
                                                     //fit: BoxFit.cover,
-                                                    /*  alignment: Alignment
-                                                            .centerRight,*/
+                                                    alignment:
+                                                        Alignment.centerRight,
                                                     child: Text(
                                                       newList[index]
                                                           .toString()
                                                           .toUpperCase(),
+                                                      //"remover commets",
                                                       style: TextStyle(
                                                         color: Colors.white,
                                                         fontWeight:

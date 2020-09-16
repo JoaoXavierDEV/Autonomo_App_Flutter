@@ -20,7 +20,6 @@ class _ProfileViewState extends State<ProfileView> {
   final fotoPerfil = AssetImage("lib/images/arquivo1.jpg");
   @override
   Widget build(BuildContext context) {
-    print(txtEndereco.text);
     final user = Provider.of<User>(context);
     return StreamBuilder(
       stream: DatabaseService(uid: user.uid).userData,
@@ -29,7 +28,7 @@ class _ProfileViewState extends State<ProfileView> {
           UserData userData = snapshot.data;
           String txtEndereco = userData.endereco;
           String txtCep = userData.cep;
-          String txtProfissao = userData.profissao;
+
           String txtTelefone = userData.telefone;
           String txtBio = userData.bio;
 
@@ -40,13 +39,13 @@ class _ProfileViewState extends State<ProfileView> {
                   userData.nome,
                   userData.email,
                   userData.sobrenome,
+                  userData.cpf,
                   txtTelefone,
                   txtCep,
                   txtEndereco,
                   userData.bairro,
                   userData.municipio,
                   userData.estado,
-                  txtProfissao,
                   txtBio,
                 );
               },
@@ -144,7 +143,8 @@ class _ProfileViewState extends State<ProfileView> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(right: 0),
+                                  padding:
+                                      const EdgeInsets.only(top: 8, right: 0),
                                   child: Container(
                                     width: 120.0,
                                     height: 120.0,
@@ -288,34 +288,6 @@ class _ProfileViewState extends State<ProfileView> {
                                         hintStyle:
                                             TextStyle(color: Colors.white),
                                         hintText: 'CEP',
-                                        fillColor: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: TextFormField(
-                                      initialValue: userData.profissao,
-                                      onChanged: (value) =>
-                                          txtProfissao = value,
-                                      style:
-                                          Theme.of(context).textTheme.bodyText2,
-                                      decoration: InputDecoration(
-                                        //icon: Icon(Icons.edit),
-                                        //suffixIcon: Icon(Icons.remove_red_eye),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.blue, width: 5.0),
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Theme.of(context)
-                                                  .dividerColor,
-                                              width: 1.0),
-                                        ),
-                                        hintStyle:
-                                            TextStyle(color: Colors.white),
-                                        hintText: 'Serviços',
                                         fillColor: Colors.white,
                                       ),
                                     ),

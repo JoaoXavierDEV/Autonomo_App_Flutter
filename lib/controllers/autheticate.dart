@@ -1,6 +1,6 @@
-import 'package:autonomo_app/pages/home/home_page.dart';
 import 'package:autonomo_app/pages/login/signin/login_page.dart';
-import 'package:autonomo_app/pages/login/signup/signup_page.dart';
+import 'package:autonomo_app/pages/login/signup/step01/signup_page.dart';
+
 import 'package:flutter/material.dart';
 
 class Authenticate extends StatefulWidget {
@@ -14,8 +14,6 @@ class _AuthenticateState extends State<Authenticate> {
     setState(() => showSignIn = !showSignIn);
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     if (showSignIn) {
@@ -24,5 +22,4 @@ class _AuthenticateState extends State<Authenticate> {
       return SignupPage(toggleView: toggleView);
     }
   }
-
 }

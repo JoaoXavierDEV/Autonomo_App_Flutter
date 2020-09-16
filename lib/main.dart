@@ -1,15 +1,17 @@
 import 'package:autonomo_app/components/bottomNavigationBar.dart';
+import 'package:autonomo_app/pages/login/signup/step03/escolheCategoria_view.dart';
 import 'package:autonomo_app/components/tabNavigationBar.dart';
 import 'package:autonomo_app/components/temas/temas.dart';
-import 'package:autonomo_app/models/categorias_model.dart';
+
 import 'package:autonomo_app/models/user.dart';
+import 'package:autonomo_app/novosTestes.dart';
 import 'package:autonomo_app/pages/home/home_page.dart';
 import 'package:autonomo_app/pages/login/signin/login_page.dart';
-import 'package:autonomo_app/pages/login/signup/profile_view.dart';
-import 'package:autonomo_app/pages/login/signup/signup_page.dart';
+import 'package:autonomo_app/pages/login/profile/profile_view.dart';
+import 'package:autonomo_app/pages/login/signup/step01/signup_page.dart';
 import 'package:autonomo_app/services/auth.dart';
 import 'package:autonomo_app/services/database.dart';
-import 'package:autonomo_app/testes.dart';
+
 import 'package:autonomo_app/whapper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -87,7 +89,7 @@ class MyApp extends StatelessWidget {
           buttonColor: azulMtEscuro,
 
           primaryColor: corBarraNavegacaoDark, // podem ser sobscritas
-          accentColor: Color(0xff080626), //
+          accentColor: corBarraNavegacaoDark, //
           backgroundColor: Colors.red,
           primarySwatch: Colors.blue,
           brightness: Brightness.dark,
@@ -124,7 +126,7 @@ class MyApp extends StatelessWidget {
                 fontSize: 10, fontWeight: FontWeight.w600, letterSpacing: 1.5),
           ),
         ),
-        themeMode: ThemeMode.system,
+        themeMode: ThemeMode.light,
         // home:  Whapper(),
         initialRoute: '/whapper',
         routes: <String, WidgetBuilder>{
@@ -135,7 +137,8 @@ class MyApp extends StatelessWidget {
           '/profile': (BuildContext context) => ProfileView(),
           '/tabNavBar': (BuildContext context) => TabNavBar(),
           '/NavBar': (BuildContext context) => BarraDeNavegacao(),
-          '/testes': (BuildContext context) => TestesLayout()
+          '/testes': (BuildContext context) => NovosTestes(),
+          '/escolheCat': (BuildContext context) => EscolheCategoriaView(),
         },
       ),
     );

@@ -1,4 +1,3 @@
-import 'package:autonomo_app/models/categorias_model.dart';
 import 'package:autonomo_app/models/perfil.dart';
 import 'package:autonomo_app/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,25 +16,25 @@ class DatabaseService extends ChangeNotifier {
       String nome,
       String email,
       String sobrenome,
+      String cpf,
       String telefone,
       String cep,
       String endereco,
       String bairro,
       String municipio,
       String estado,
-      String profissao,
       String bio) async {
     return await perfilColecao.document(uid).setData({
       'nome': nome,
       'email': email,
       'sobrenome': sobrenome,
+      'subcategoria': cpf,
       'telefone': telefone,
       'cep': cep,
       'endereco': endereco,
       'bairro': bairro,
       'municipio': municipio,
       'estado': estado,
-      'profissao': profissao,
       'bio': bio,
     });
   }
@@ -47,6 +46,7 @@ class DatabaseService extends ChangeNotifier {
         nome: doc.data['nome'] ?? '',
         email: doc.data['email'] ?? '',
         sobrenome: doc.data['sobrenome'] ?? '',
+        cpf: doc.data['cpf'] ?? '',
         telefone: doc.data['telefone'] ?? '',
         cep: doc.data['cep'] ?? '',
         endereco: doc.data['endereco'] ?? '',
@@ -65,6 +65,7 @@ class DatabaseService extends ChangeNotifier {
       nome: snapshot.data['nome'],
       email: snapshot.data['email'],
       sobrenome: snapshot.data['sobrenome'],
+      cpf: snapshot.data['cpf'],
       telefone: snapshot.data['telefone'],
       cep: snapshot.data['cep'],
       endereco: snapshot.data['endereco'],
@@ -84,5 +85,11 @@ class DatabaseService extends ChangeNotifier {
   //Pegando dados do usuario
   Stream<UserData> get userData {
     return perfilColecao.document(uid).snapshots().map(_userDataFromSnapshot);
+  }
+
+  Future categoriaUserData(Map profissao) async {
+    return await perfilColecao.document(uid).updateData({
+      'profissao': profissao,
+    });
   }
 }

@@ -1,14 +1,11 @@
-import 'package:autonomo_app/components/bottomNavigationBar.dart';
 import 'package:autonomo_app/components/card.dart';
 import 'package:autonomo_app/components/categorias_view.dart';
 import 'package:autonomo_app/components/destaques.dart';
 import 'package:autonomo_app/components/pesquisar.dart';
-import 'package:autonomo_app/pages/login/signin/login_page.dart';
 import 'package:autonomo_app/services/auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:autonomo_app/components/temas/temas.dart';
-import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -89,7 +86,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),*/
       body: Padding(
-        padding: const EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.only(top: 34),
         child: Container(
           //color: Theme.of(context).accentColor,
           child: SingleChildScrollView(

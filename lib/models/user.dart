@@ -8,6 +8,8 @@ class UserData {
   final String nome;
   final String email;
   final String sobrenome;
+
+  final String cpf;
   final String telefone;
   //endereço
   final String cep;
@@ -16,13 +18,14 @@ class UserData {
   final String estado;
   final String endereco;
   //Profissão
-  final String profissao;
+  final Map profissao;
   final String bio;
   UserData({
     this.uid,
     this.nome,
     this.email,
     this.sobrenome,
+    this.cpf,
     this.telefone,
     this.cep,
     this.bairro,

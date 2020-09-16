@@ -1,16 +1,13 @@
-import 'package:autonomo_app/models/user.dart';
-import 'package:autonomo_app/pages/home/home_page.dart';
-import 'package:autonomo_app/pages/login/signup/profile_view.dart';
-import 'package:autonomo_app/services/database.dart';
+import 'package:autonomo_app/components/temas/temas.dart';
+
 import 'package:autonomo_app/whapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:autonomo_app/pages/login/signup/signup_page.dart';
+
 import 'package:autonomo_app/pages/login/resetpassword/reset_password_page.dart';
 import 'package:autonomo_app/styles/loading.dart';
 import 'package:autonomo_app/services/auth.dart';
-import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   final Function toggleView;
@@ -61,7 +58,6 @@ class _LoginPageState extends State<LoginPage> {
             body: new SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(top: 60, left: 40, right: 40),
-                color: Colors.white,
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -79,7 +75,6 @@ class _LoginPageState extends State<LoginPage> {
                         decoration: InputDecoration(
                             labelText: "E-mail",
                             labelStyle: TextStyle(
-                              color: Colors.black38,
                               fontWeight: FontWeight.w400,
                               fontSize: 20,
                             )),
@@ -97,7 +92,6 @@ class _LoginPageState extends State<LoginPage> {
                         decoration: InputDecoration(
                           labelText: "Senha",
                           labelStyle: TextStyle(
-                            color: Colors.black38,
                             fontWeight: FontWeight.w400,
                             fontSize: 20,
                           ),
@@ -131,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: 60,
                         alignment: Alignment.centerLeft,
                         decoration: BoxDecoration(
-                          color: Color(0xff080626),
+                          color: corBarraNavegacao,
                           borderRadius: BorderRadius.all(
                             Radius.circular(5),
                           ),
@@ -183,9 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                           },
                         )),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+
                       Container(
                         height: 60,
                         alignment: Alignment.centerLeft,
@@ -223,9 +215,6 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
                       Container(
                         height: 40,
                         child: FlatButton(
@@ -240,7 +229,7 @@ class _LoginPageState extends State<LoginPage> {
                           },
                         ),
                       ),
-                      SizedBox(height: 12.0),
+                      // SizedBox(height: 12.0),
                       Text(
                         error,
                         style:

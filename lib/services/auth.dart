@@ -22,8 +22,19 @@ class AuthService {
           email: email, password: password);
       FirebaseUser user = result.user;
       //Criando informções do usuario pela uid
-      await DatabaseService(uid: user.uid)
-          .updateUserData('', '', '', '', '', '', '', '', '', '', '');
+      await DatabaseService(uid: user.uid).updateUserData(
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+      );
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

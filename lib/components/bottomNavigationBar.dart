@@ -1,9 +1,8 @@
-import 'package:autonomo_app/botoes.dart';
-import 'package:autonomo_app/novosTestes.dart';
+import 'package:autonomo_app/pages/login/signup/step01/signup_page.dart';
+import 'package:autonomo_app/pages/login/signup/step02/signup_page2.dart';
+import 'package:autonomo_app/pages/login/signup/step03/escolheCategoria_view.dart';
 import 'package:autonomo_app/pages/home/home_page.dart';
-import 'package:autonomo_app/pages/login/signin/login_page.dart';
-import 'package:autonomo_app/pages/login/signup/profile_view.dart';
-import 'package:autonomo_app/testes.dart';
+import 'package:autonomo_app/pages/login/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:autonomo_app/components/temas/temas.dart';
 import 'package:flutter/services.dart';
@@ -42,22 +41,21 @@ class BarraDeNavegacao extends StatefulWidget {
 
 class _BarraDeNavegacaoState extends State<BarraDeNavegacao>
     with SingleTickerProviderStateMixin {
-  int _currentIndex = 2;
+  int _currentIndex = 1;
 
   List<Widget> _tabList = [
     HomePage(),
-    // NovosTestes(),
-    BotoesView(),
-    //TestesLayout(),
-    //LoginPage(),
-    ProfileView(),
+    //EscolheCategoriaView(),
+    SignupPage(),
+    SignupPage2(),
+    //ProfileView(),
   ];
   TabController _tabController;
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    getCurrentStatusNavigationBarColor();
+    // getCurrentStatusNavigationBarColor();
     // print(_tabController);
   }
 
