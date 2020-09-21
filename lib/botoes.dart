@@ -1,3 +1,4 @@
+import 'package:autonomo_app/components/temas/temas.dart';
 import 'package:flutter/material.dart';
 
 class BotoesView extends StatelessWidget {
@@ -122,7 +123,67 @@ class BotoesView extends StatelessWidget {
                       "Sair",
                       style: TextStyle(fontSize: 14, color: Colors.white),
                     ),
-                  )
+                  ),
+                  RaisedButton.icon(
+                    color: Colors.red,
+                    splashColor: Colors.yellow,
+                    icon: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.white,
+                    ),
+                    label: Text(
+                      "Avançar",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    onPressed: () {},
+                  ),
+                  // final
+                  //////////////////////
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0, bottom: 50),
+                    child: RaisedButton(
+                      visualDensity: VisualDensity.comfortable,
+                      elevation: 8,
+                      color: azulMtEscuro,
+                      splashColor: Colors.green,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(900.0),
+                        side: BorderSide(
+                          color: Colors.blue[900],
+                          width: 4,
+                        ),
+                      ),
+                      child: Container(
+                        width: 200,
+                        height: 48,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Cadastrar".toUpperCase(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w100,
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Icon(
+                                Icons.arrow_forward,
+                                size: 28,
+                                color: Colors.white,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
                 ],
               ),
             ],

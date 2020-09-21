@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const primaryColor = const Color(0xff4285f4);
 const whiteColor = const Color(0xffffffff);
 const niceBlue = const Color(0xff0066cb);
+const cinzaMS = const Color(0xFF605e5c);
 
 // const azulMtEscuro = const Color(0xff080626);
 const azulMtEscuro = const Color(0xFF033363);

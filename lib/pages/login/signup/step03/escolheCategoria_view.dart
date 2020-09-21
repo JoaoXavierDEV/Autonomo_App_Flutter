@@ -1,13 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
 import 'package:autonomo_app/components/temas/temas.dart';
 import 'package:autonomo_app/models/user.dart';
 import 'package:autonomo_app/services/NomeCat_service.dart';
 import 'package:autonomo_app/services/database.dart';
 import 'package:autonomo_app/styles/loading.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class EscolheCategoriaView extends StatefulWidget {
-  const EscolheCategoriaView({Key key}) : super(key: key);
+  final FileImage fotoPerfil;
+  final String nomeCompleto;
+  final String email;
+  final String senha;
+  final String datanasc;
+  final String cpf;
+
+  const EscolheCategoriaView({
+    Key key,
+    this.fotoPerfil,
+    this.nomeCompleto,
+    this.email,
+    this.senha,
+    this.datanasc,
+    this.cpf,
+  }) : super(key: key);
 
   @override
   _EscolheCategoriaViewState createState() => _EscolheCategoriaViewState();
@@ -81,8 +98,23 @@ class _EscolheCategoriaViewState extends State<EscolheCategoriaView> {
         },
       ),
       appBar: AppBar(
-        title: Text("Selecione suas categorias"),
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(
+            LineAwesomeIcons.arrow_left,
+            color: Colors.white,
+            size: 28,
+          ),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        title: Text(
+          "Selecione suas categorias",
+          style: Theme.of(context)
+              .textTheme
+              .headline4
+              .copyWith(color: Colors.white, fontSize: 24),
+        ),
       ),
       body: FutureBuilder(
         future: _future,

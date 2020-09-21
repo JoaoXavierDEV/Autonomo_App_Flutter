@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:autonomo_app/models/perfil.dart';
 import 'package:autonomo_app/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class DatabaseService extends ChangeNotifier {
@@ -11,6 +14,8 @@ class DatabaseService extends ChangeNotifier {
       Firestore.instance.collection('perfil');
   final CollectionReference categorias =
       Firestore.instance.collection('anuncio');
+  FirebaseStorage _storage =
+      FirebaseStorage(storageBucket: "gs://autonomo-app-c3bdd.appspot.com");
 
   Future updateUserData(
       String nome,
@@ -91,5 +96,24 @@ class DatabaseService extends ChangeNotifier {
     return await perfilColecao.document(uid).updateData({
       'profissao': profissao,
     });
+  }
+
+  // Enviando a imagem
+  Future uploadFile(File file) async {
+    var storageRef = _storage.ref().child("Usuarios/$uid/Perfil/Foto");
+    var uploadTask = storageRef.putFile(file);
+    var completedTask = await uploadTask.onComplete;
+    String downloadUrl = await completedTask.ref.getDownloadURL();
+    print(downloadUrl);
+
+    return downloadUrl;
+  }
+
+  // Pegando url da imagem
+  Future getUserProfileImages() async {
+    return await _storage
+        .ref()
+        .child("Usuarios/$uid/Perfil/Foto")
+        .getDownloadURL();
   }
 }

@@ -25,6 +25,9 @@ dependencies:
   
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.16.1
   
   firebase_auth: ^0.16.1
   cloud_firestore: ^0.13.7
@@ -35,6 +38,15 @@ dependencies:
   cpf_cnpj_validator: ^1.0.5
   firebase_storage: ^3.1.6
   image_picker: ^0.6.7+7
+  flutter_custom_clippers: ^1.1.2
+  font_awesome_flutter: ^8.8.1
+  animations: ^1.1.2
+  line_awesome_flutter: 1.0.1
+  fluentui_icons: ^0.2.0
+  flare_flutter: ^2.0.6
+
+
+
   
   
   
@@ -75,6 +87,7 @@ flutter:
       - lib/images/password.png
       - lib/images/info.png
       - lib/images/profile.png
+      - lib/images/Logo.flr
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
