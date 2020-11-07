@@ -1,45 +1,47 @@
 import 'dart:convert';
 
-class ResultCep {
-    String cep;
-    String logradouro;
-    String complemento;
-    String bairro;
-    String localidade;
-    String uf;
-    String unidade;
-    String ibge;
-    String gia;
+class CepModel {
+  String cep;
+  String logradouro;
+  String complemento;
+  String bairro;
+  String localidade;
+  String uf;
+  String unidade;
+  String ibge;
+  String gia;
+  bool erro;
 
-    ResultCep({
-        this.cep,
-        this.logradouro,
-        this.complemento,
-        this.bairro,
-        this.localidade,
-        this.uf,
-        this.unidade,
-        this.ibge,
-        this.gia,
-    });
+  CepModel({
+    this.cep,
+    this.logradouro = '',
+    this.complemento = '',
+    this.bairro = '',
+    this.localidade = '',
+    this.uf = '',
+    this.unidade = '',
+    this.ibge = '',
+    this.gia = '',
+    this.erro,
+  });
 
-    factory ResultCep.fromJson(String str) => ResultCep.fromMap(json.decode(str));
+  factory CepModel.fromJson(String str) => CepModel.fromMap(json.decode(str));
 
-    String toJson() => json.encode(toMap());
+  String toJson() => json.encode(toMap());
 
-    factory ResultCep.fromMap(Map<String, dynamic> json) => ResultCep(
-        cep: json["cep"],
-        logradouro: json["logradouro"],
-        complemento: json["complemento"],
-        bairro: json["bairro"],
-        localidade: json["localidade"],
-        uf: json["uf"],
-        unidade: json["unidade"],
-        ibge: json["ibge"],
-        gia: json["gia"],
-    );
+  factory CepModel.fromMap(Map<String, dynamic> json) => CepModel(
+      cep: json["cep"],
+      logradouro: json["logradouro"],
+      complemento: json["complemento"],
+      bairro: json["bairro"],
+      localidade: json["localidade"],
+      uf: json["uf"],
+      unidade: json["unidade"],
+      ibge: json["ibge"],
+      gia: json["gia"],
+      erro: json["erro"]);
 
-    Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => {
         "cep": cep,
         "logradouro": logradouro,
         "complemento": complemento,
@@ -49,5 +51,19 @@ class ResultCep {
         "unidade": unidade,
         "ibge": ibge,
         "gia": gia,
-    };
+        "erro": erro
+      };
+
+  clear() => {
+        "cep": '',
+        "logradouro": '',
+        "complemento": '',
+        "bairro": '',
+        "localidade": '',
+        "uf": '',
+        "unidade": '',
+        "ibge": '',
+        "gia": '',
+        "erro": true
+      };
 }

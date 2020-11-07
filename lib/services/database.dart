@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:autonomo_app/models/perfil.dart';
 import 'package:autonomo_app/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -18,46 +16,34 @@ class DatabaseService extends ChangeNotifier {
       FirebaseStorage(storageBucket: "gs://autonomo-app-c3bdd.appspot.com");
 
   Future updateUserData(
-      String nome,
-      String email,
-      String sobrenome,
-      String cpf,
-      String telefone,
-      String cep,
-      String endereco,
-      String bairro,
-      String municipio,
-      String estado,
-      String bio) async {
+    String nome,
+    String email,
+    String sobrenome,
+    String cpf,
+    String telefone,
+    Map endereco,
+    String bio,
+  ) async {
     return await perfilColecao.document(uid).setData({
       'nome': nome,
       'email': email,
       'sobrenome': sobrenome,
       'subcategoria': cpf,
       'telefone': telefone,
-      'cep': cep,
       'endereco': endereco,
-      'bairro': bairro,
-      'municipio': municipio,
-      'estado': estado,
       'bio': bio,
     });
   }
 
   // lista de dados do perfil para jogar na tela
-  List<Perfil> _perfilListFromSnapshot(QuerySnapshot snaphshot) {
+  List<UserData> _perfilListFromSnapshot(QuerySnapshot snaphshot) {
     return snaphshot.documents.map((doc) {
-      return Perfil(
+      return UserData(
         nome: doc.data['nome'] ?? '',
         email: doc.data['email'] ?? '',
-        sobrenome: doc.data['sobrenome'] ?? '',
         cpf: doc.data['cpf'] ?? '',
         telefone: doc.data['telefone'] ?? '',
-        cep: doc.data['cep'] ?? '',
         endereco: doc.data['endereco'] ?? '',
-        bairro: doc.data['bairro'] ?? '',
-        municipio: doc.data['municipio'] ?? '',
-        estado: doc.data['estado'] ?? '',
         bio: doc.data['bio'] ?? '',
       );
     }).toList();
@@ -69,21 +55,16 @@ class DatabaseService extends ChangeNotifier {
       uid: uid,
       nome: snapshot.data['nome'],
       email: snapshot.data['email'],
-      sobrenome: snapshot.data['sobrenome'],
       cpf: snapshot.data['cpf'],
       telefone: snapshot.data['telefone'],
-      cep: snapshot.data['cep'],
       endereco: snapshot.data['endereco'],
-      bairro: snapshot.data['bairro'],
-      municipio: snapshot.data['municipio'],
-      estado: snapshot.data['estado'],
       profissao: snapshot.data['profissao'],
       bio: snapshot.data['bio'],
     );
   }
 
   // Pegando dados do perfil
-  Stream<List<Perfil>> get perfil {
+  Stream<List<UserData>> get perfil {
     return perfilColecao.snapshots().map(_perfilListFromSnapshot);
   }
 

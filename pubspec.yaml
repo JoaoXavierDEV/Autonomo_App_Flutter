@@ -44,6 +44,11 @@ dependencies:
   line_awesome_flutter: 1.0.1
   fluentui_icons: ^0.2.0
   flare_flutter: ^2.0.6
+  page_transition: "^1.1.6"
+  flutter_lottie: ^0.2.0
+  lottie: ^0.6.0
+  intro_views_flutter: ^2.8.2
+
 
 
 
@@ -76,18 +81,23 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-      - lib/images/arquivo.jpg
-      - lib/images/arquivo1.jpg
-      - lib/images/arquivo.gif
-      - lib/images/arquivo2.gif
-      - lib/images/arquivo3.gif
-      - lib/images/arquivo4.gif
-      - lib/images/google.png
-      - lib/images/work.png
-      - lib/images/password.png
-      - lib/images/info.png
-      - lib/images/profile.png
-      - lib/images/Logo.flr
+      - lib/images/fotoPerfil/arquivo.jpg
+      - lib/images/fotoPerfil/arquivo1.jpg
+      - lib/images/fotoPerfil/arquivo2.jpg
+      - lib/images/fotoPerfil/arquivo3.jpg
+      - lib/images/fotoPerfil/arquivo4.gif
+
+      - lib/images/icons/google.png
+      - lib/images/icons/work.png
+      - lib/images/icons/password.png
+      - lib/images/icons/info.png
+      - lib/images/icons/profile.png
+      - lib/images/icons/fotoAvatar.png
+
+      - lib/images/logo/logo.png
+
+      - lib/images/animations/done.json
+      - lib/images/animations/Logo.flr
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

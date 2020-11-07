@@ -1,5 +1,5 @@
-import 'package:autonomo_app/pages/login/signin/login_page.dart';
-import 'package:autonomo_app/pages/login/signup/step01/signup_page.dart';
+import 'package:autonomo_app/pages/login/signin/login_view.dart';
+import 'package:autonomo_app/pages/login/signup/step01/signup_view.dart';
 
 import 'package:flutter/material.dart';
 

@@ -1,29 +1,27 @@
+import 'dart:io';
+import 'package:autonomo_app/components/loadingButton_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+
+import 'package:autonomo_app/components/AnimationFluttie_widget.dart';
 import 'package:autonomo_app/components/temas/temas.dart';
 import 'package:autonomo_app/models/user.dart';
+
 import 'package:autonomo_app/services/NomeCat_service.dart';
-import 'package:autonomo_app/services/database.dart';
+
 import 'package:autonomo_app/styles/loading.dart';
 
 class EscolheCategoriaView extends StatefulWidget {
-  final FileImage fotoPerfil;
-  final String nomeCompleto;
-  final String email;
-  final String senha;
-  final String datanasc;
-  final String cpf;
+  final UserData meusDados;
+  final bool busy;
+  final Function func;
 
   const EscolheCategoriaView({
     Key key,
-    this.fotoPerfil,
-    this.nomeCompleto,
-    this.email,
-    this.senha,
-    this.datanasc,
-    this.cpf,
+    this.meusDados,
+    this.busy = false,
+    this.func,
   }) : super(key: key);
 
   @override
@@ -50,19 +48,6 @@ class _EscolheCategoriaViewState extends State<EscolheCategoriaView> {
             nomeSubcat.forEach((element) {
               mapa[nomeCat][element] = false;
             }),
-
-            /*  nomeSubcat.forEach((element) {
-                    listaSubCatNew.add(element);
-                  }),
-*/
-            /* if (listaCheckBox.length < numCampos)
-                    {
-                      for (int i = 0; i < listaSubCatNew.length; i++)
-                        {
-                          listaCheckBox[listaSubCatNew[i]] = false,
-                        }
-                    }
-*/
           });
     });
     return mapa;
@@ -86,18 +71,49 @@ class _EscolheCategoriaViewState extends State<EscolheCategoriaView> {
     _dadosFirebaseFinal = _dadosFirebase;
   }
 
+  brilhoApp() {
+    String temaApp = Theme.of(context).brightness.toString();
+    if (temaApp == "Brightness.dark") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // pega o brilho do sistema android                                                   //
+    // String temaDark = WidgetsBinding.instance.window.platformBrightness.toString();    //
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // pega o brilho do app pelo Contexto, somente depois do método build                 //
+    // String temaApp = Theme.of(context).brightness.toString();                          //
+    ////////////////////////////////////////////////////////////////////////////////////////
+
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.arrow_forward),
+      floatingActionButton:
+          /*LoadingButton(
+        busy: widget.busy,
+        func: widget.func,
+      ),*/
+
+          FloatingActionButton.extended(
+        icon: Icon(Icons.arrow_forward),
+        label: Text("Concluir"),
         onPressed: () async {
-          await DatabaseService(uid: user.uid)
-              .categoriaUserData(_dadosFirebaseFinal);
+          // print(" ---- PAGE 3 " + widget.meusDados.nome);
+          // print(" ---- PAGE 3 " + widget.meusDados.telefone);
+          /*
+          if (_dadosFirebaseFinal.isEmpty) {
+            EscolheCategoriaController().alertUnselectedCategoria(context);
+          } else {
+            await DatabaseService(uid: user.uid)
+                .categoriaUserData(_dadosFirebaseFinal);
+          }*/
         },
       ),
       appBar: AppBar(
+        backgroundColor: azulMtEscuro,
         leading: IconButton(
           icon: Icon(
             LineAwesomeIcons.arrow_left,
@@ -128,51 +144,81 @@ class _EscolheCategoriaViewState extends State<EscolheCategoriaView> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
                     children: mapa.keys.map((key) {
-                      return ExpansionTile(
-                        title: Text(
-                          key.toUpperCase(),
-                          style: Theme.of(context).textTheme.headline6.copyWith(
-                                fontSize: 18,
-                              ),
-                        ),
-                        initiallyExpanded: false,
-                        subtitle: Text(
-                          "Selecione seus serviços",
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
-                        ),
-                        backgroundColor: Theme.of(context)
-                            .scaffoldBackgroundColor
-                            .withOpacity(0.9),
-                        trailing: Icon(
-                          Icons.arrow_drop_down,
-                          size: 32,
-                          color: Color(0xff3700b3),
-                        ),
-                        children: [
-                          new Container(
-                            child: Column(
-                              children: mapa[key].keys.map((nomeSubcat) {
-                                return CheckboxListTile(
-                                  //checkColor: Theme.of(context).accentColor,
-                                  activeColor: corBarraNavegacao,
-                                  title: Text(nomeSubcat.toString()),
-                                  controlAffinity:
-                                      ListTileControlAffinity.leading,
-                                  value: mapa[key][nomeSubcat],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      mapa[key][nomeSubcat] = value;
-                                      getItems();
-                                    });
-                                  },
-                                );
-                              }).toList(),
+                      return Padding(
+                        padding:
+                            const EdgeInsets.only(top: 12, left: 10, right: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: brilhoApp() ? azulMtEscuro : Colors.white,
+                            border: Border.all(
+                              color: azulMtEscuro,
+                              width: 2,
                             ),
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
-                        ],
+                          child: ExpansionTile(
+                            title: Text(
+                              key.toUpperCase(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                    fontSize: 18,
+                                  ),
+                            ),
+                            initiallyExpanded: false,
+                            subtitle: Text(
+                              "Selecione seus serviços",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                            ),
+                            children: [
+                              new Container(
+                                margin: EdgeInsets.symmetric(horizontal: 16),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  //color: Colors.red,
+                                  border: Border(
+                                    top: BorderSide(
+                                      color: brilhoApp()
+                                          ? Colors.white
+                                          : azulMtEscuro,
+                                      width: 1.5,
+                                    ),
+
+                                    //color: azulMtEscuro,
+                                    //width: 1.5,
+                                  ),
+                                ),
+                                child: Column(
+                                  children: mapa[key].keys.map((nomeSubcat) {
+                                    return CheckboxListTile(
+//                                  checkColor: Theme.of(context).accentColor,
+                                      contentPadding: EdgeInsets.only(left: 0),
+                                      activeColor: azulMtEscuro,
+
+                                      title: Text(nomeSubcat.toString()),
+                                      controlAffinity:
+                                          ListTileControlAffinity.leading,
+                                      value: mapa[key][nomeSubcat],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          mapa[key][nomeSubcat] = value;
+                                          getItems();
+                                        });
+                                      },
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       );
                     }).toList(),
                   ),

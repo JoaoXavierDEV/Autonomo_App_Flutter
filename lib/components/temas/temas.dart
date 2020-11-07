@@ -7,11 +7,13 @@ const cinzaMS = const Color(0xFF605e5c);
 
 // const azulMtEscuro = const Color(0xff080626);
 const azulMtEscuro = const Color(0xFF033363);
+const verdeSecundario = const Color(0xff409342);
 
 const corBarraNavegacao = const Color(0xFF033363);
 const corBarraNavegacaoDark = const Color(0xFF0E0E0E);
 
 class Temas {
+  static const corDark = Color(0xFF0E0E0E);
 /*
 var theme = darkTheme;
 

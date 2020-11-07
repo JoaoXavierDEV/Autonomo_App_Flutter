@@ -1,5 +1,6 @@
 import 'package:autonomo_app/components/temas/temas.dart';
 import 'package:flutter/material.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class BotoesView extends StatelessWidget {
   @override
@@ -182,6 +183,71 @@ class BotoesView extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(context);
                       },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 28.0, bottom: 30),
+                    child: GestureDetector(
+                      child: Container(
+                        width: 180,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withAlpha(100),
+                              offset: Offset(0, 4),
+                              blurRadius: 10,
+                              spreadRadius: 1,
+                            ),
+                          ],
+                          border: Border.all(
+                            color: Colors.blue[900],
+                            width: 4.0,
+                          ),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(900.0)),
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            stops: [
+                              0.1,
+                              1,
+                            ],
+                            colors: [
+                              Color(0xFF0F59A3),
+                              Color(0xFF033363)
+                              //Color(0xFF033363),
+                              //Color(0xFF021F3B)
+                            ],
+                          ),
+                        ),
+                        child: Container(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Avançar",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w100,
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Icon(
+                                  LineAwesomeIcons.arrow_right,
+                                  size: 28,
+                                  color: Colors.white,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      onTap: () {},
                     ),
                   ),
                 ],

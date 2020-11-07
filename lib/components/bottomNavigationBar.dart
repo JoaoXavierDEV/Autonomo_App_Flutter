@@ -1,5 +1,3 @@
-import 'package:autonomo_app/pages/login/signup/step01/signup_page.dart';
-import 'package:autonomo_app/pages/login/signup/step02/signup_page2.dart';
 import 'package:autonomo_app/pages/login/signup/step03/escolheCategoria_view.dart';
 import 'package:autonomo_app/pages/home/home_page.dart';
 import 'package:autonomo_app/pages/login/profile/profile_view.dart';
@@ -8,31 +6,6 @@ import 'package:autonomo_app/components/temas/temas.dart';
 import 'package:flutter/services.dart';
 
 final temas = new Temas();
-
-showAlertDialog1(BuildContext context) {
-  // configura o button
-  Widget okButton = FlatButton(
-    child: Text("OK"),
-    onPressed: () {
-      Navigator.of(context).pop();
-    },
-  );
-  // configura o  AlertDialog
-  AlertDialog alerta = AlertDialog(
-    title: Text("Login"),
-    content: Text("Faça login para usar o app"),
-    actions: [
-      okButton,
-    ],
-  );
-  // exibe o dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alerta;
-    },
-  );
-}
 
 class BarraDeNavegacao extends StatefulWidget {
   @override
@@ -45,17 +18,17 @@ class _BarraDeNavegacaoState extends State<BarraDeNavegacao>
 
   List<Widget> _tabList = [
     HomePage(),
-    //EscolheCategoriaView(),
-    SignupPage(),
-    SignupPage2(),
-    //ProfileView(),
+    EscolheCategoriaView(),
+    //SignupPage(),
+    //SignupPage2(),
+    ProfileView(),
   ];
   TabController _tabController;
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    // getCurrentStatusNavigationBarColor();
+    getCurrentStatusNavigationBarColor();
     // print(_tabController);
   }
 

@@ -12,10 +12,13 @@ class CampoTexto {
 }
 
 Widget gerarCampos(
-    {String nomeCampo, TextStyle style, TextEditingController controller}) {
+    {String nomeCampo,
+    TextStyle style,
+    TextEditingController controller,
+    BuildContext context}) {
   return TextFormField(
     controller: controller,
-    style: style,
+    style: Theme.of(context).textTheme.bodyText2,
     decoration: InputDecoration(
       floatingLabelBehavior: FloatingLabelBehavior.auto,
       labelText: nomeCampo,

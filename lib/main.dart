@@ -1,7 +1,10 @@
 import 'package:autonomo_app/botoes.dart';
+import 'package:autonomo_app/components/AnimationFluttie_widget.dart';
 import 'package:autonomo_app/components/SplashScreen.dart';
 import 'package:autonomo_app/components/bottomNavigationBar.dart';
-import 'package:autonomo_app/pages/login/signup/step02/signup_page2.dart';
+import 'package:autonomo_app/pages/login/signup/step01/signup_view.dart';
+
+import 'package:autonomo_app/pages/login/signup/step02/signup_view2.dart';
 import 'package:autonomo_app/pages/login/signup/step03/escolheCategoria_view.dart';
 import 'package:autonomo_app/components/tabNavigationBar.dart';
 import 'package:autonomo_app/components/temas/temas.dart';
@@ -9,11 +12,12 @@ import 'package:autonomo_app/components/temas/temas.dart';
 import 'package:autonomo_app/models/user.dart';
 import 'package:autonomo_app/novosTestes.dart';
 import 'package:autonomo_app/pages/home/home_page.dart';
-import 'package:autonomo_app/pages/login/signin/login_page.dart';
+import 'package:autonomo_app/pages/login/signin/login_view.dart';
 import 'package:autonomo_app/pages/login/profile/profile_view.dart';
-import 'package:autonomo_app/pages/login/signup/step01/signup_page.dart';
+
 import 'package:autonomo_app/services/auth.dart';
 import 'package:autonomo_app/services/database.dart';
+import 'package:autonomo_app/testes.dart';
 
 import 'package:autonomo_app/whapper.dart';
 import 'package:flutter/material.dart';
@@ -47,25 +51,24 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       child: MaterialApp(
         localizationsDelegates: [
-          // ... app-specific localization delegate[s] here
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
         ],
         supportedLocales: [const Locale('pt', 'BR')],
         debugShowCheckedModeBanner: false,
         title: 'Autônomo App',
-
         theme: ThemeData(
           scaffoldBackgroundColor: whiteColor,
           primaryColor: corBarraNavegacao, // podem ser sobscritas
           accentColor: Colors.blue[800], //
-          buttonColor: azulMtEscuro,
+
           primarySwatch: Colors.blue,
           brightness: Brightness.light,
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          iconTheme: IconThemeData(color: cinzaMS),
 
-          dividerColor: Colors.grey[300],
+          dividerColor: Colors.transparent,
           // para selecionar todas as palavras iguais: control D e clique na palavra
           textTheme: TextTheme(
             headline1: GoogleFonts.quicksand(
@@ -103,41 +106,47 @@ class MyApp extends StatelessWidget {
           ),
           // campo input
           inputDecorationTheme: InputDecorationTheme(
-            //border: InputBorder.none,
-            floatingLabelBehavior: FloatingLabelBehavior.auto,
-
-            labelStyle: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 20,
-            ),
-
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: cinzaMS,
-                width: 4.0,
-                style: BorderStyle.solid,
+              floatingLabelBehavior: FloatingLabelBehavior.auto,
+              labelStyle: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 20,
               ),
-            ),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: cinzaMS,
-                width: 1.5,
-                style: BorderStyle.solid,
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: cinzaMS,
+                  width: 4.0,
+                  style: BorderStyle.solid,
+                ),
               ),
-            ),
-            errorBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.red,
-                width: 2.0,
-                style: BorderStyle.solid,
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: cinzaMS,
+                  width: 0.8,
+                  style: BorderStyle.solid,
+                ),
               ),
-            ),
-            // fillColor: Colors.white,
-          ),
+              errorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.red,
+                  width: 2.0,
+                  style: BorderStyle.solid,
+                ),
+              ),
+              focusedErrorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.red,
+                  width: 4.0,
+                  style: BorderStyle.solid,
+                ),
+              ),
+              errorStyle: TextStyle(
+                fontWeight: FontWeight.w900,
+              )),
         ).copyWith(),
         darkTheme: ThemeData(
           scaffoldBackgroundColor: Color(0xFF181818),
-          buttonColor: azulMtEscuro,
+          iconTheme: IconThemeData(color: cinzaMS),
+          // buttonColor: azulMtEscuro,
 
           primaryColor: corBarraNavegacaoDark, // podem ser sobscritas
           accentColor: corBarraNavegacaoDark, //
@@ -146,7 +155,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           visualDensity: VisualDensity.adaptivePlatformDensity,
 
-          dividerColor: Colors.grey[800],
+          dividerColor: Colors.transparent,
 
           textTheme: TextTheme(
             headline1: GoogleFonts.quicksand(
@@ -179,32 +188,54 @@ class MyApp extends StatelessWidget {
 
           // CampoInput
           inputDecorationTheme: InputDecorationTheme(
-            border: InputBorder.none,
-            floatingLabelBehavior: FloatingLabelBehavior.auto,
-            labelStyle: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 20,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(0.0)),
-              borderSide: BorderSide(color: Colors.blue, width: 3.0),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(0.0)),
-              borderSide: BorderSide(
-                color: Theme.of(context).dividerColor,
-                width: 2.0,
-                style: BorderStyle.solid,
+              border: InputBorder.none,
+              floatingLabelBehavior: FloatingLabelBehavior.auto,
+              labelStyle: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 20,
+                color: Color(0xFF929292),
               ),
-            ),
-            // fillColor: Colors.white,
-          ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: cinzaMS,
+                  width: 4.0,
+                  style: BorderStyle.solid,
+                ),
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: cinzaMS,
+                  width: 0.8,
+                  style: BorderStyle.solid,
+                ),
+              ),
+              errorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.red,
+                  width: 1.5,
+                  style: BorderStyle.solid,
+                ),
+              ),
+              focusedErrorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.red,
+                  width: 4.0,
+                  style: BorderStyle.solid,
+                ),
+              ),
+              errorStyle: TextStyle(
+                fontWeight: FontWeight.w900,
+              )
+
+              // fillColor: Colors.white,
+              ),
         ).copyWith(),
-        themeMode: ThemeMode.light,
+        themeMode: ThemeMode.system,
         // home:  Whapper(),
-        initialRoute: '/signup',
+        initialRoute: '/signup2',
         routes: <String, WidgetBuilder>{
           '/splash': (BuildContext context) => SplashScreen(),
+          '/flutie': (BuildContext context) => AnimationFluttieWidget(),
           '/whapper': (BuildContext context) => Whapper(),
           '/home': (BuildContext context) => HomePage(),
           '/signup': (BuildContext context) => SignupPage(),
@@ -213,7 +244,7 @@ class MyApp extends StatelessWidget {
           '/profile': (BuildContext context) => ProfileView(),
           '/tabNavBar': (BuildContext context) => TabNavBar(),
           '/NavBar': (BuildContext context) => BarraDeNavegacao(),
-          '/testes': (BuildContext context) => NovosTestes(),
+          '/testes': (BuildContext context) => TestesLayout(),
           '/escolheCat': (BuildContext context) => EscolheCategoriaView(),
           '/botoes': (context) => BotoesView(),
         },

@@ -26,29 +26,13 @@ class _ProfileViewState extends State<ProfileView> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           UserData userData = snapshot.data;
-          String txtEndereco = userData.endereco;
-          String txtCep = userData.cep;
 
           String txtTelefone = userData.telefone;
           String txtBio = userData.bio;
 
           return Scaffold(
             floatingActionButton: FloatingActionButton.extended(
-              onPressed: () async {
-                await DatabaseService(uid: user.uid).updateUserData(
-                  userData.nome,
-                  userData.email,
-                  userData.sobrenome,
-                  userData.cpf,
-                  txtTelefone,
-                  txtCep,
-                  txtEndereco,
-                  userData.bairro,
-                  userData.municipio,
-                  userData.estado,
-                  txtBio,
-                );
-              },
+              onPressed: () async {},
               label: Text(
                 'Salvar',
                 style: TextStyle(color: Colors.white),
@@ -238,8 +222,8 @@ class _ProfileViewState extends State<ProfileView> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextFormField(
-                                      onChanged: (value) => txtEndereco = value,
-                                      initialValue: txtEndereco,
+                                      // onChanged: (value) => txtEndereco = value,
+                                      // initialValue: txtEndereco,
                                       style:
                                           Theme.of(context).textTheme.bodyText2,
                                       //controller: txtEndereco,
@@ -268,8 +252,8 @@ class _ProfileViewState extends State<ProfileView> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextFormField(
-                                      initialValue: userData.cep,
-                                      onChanged: (value) => txtCep = value,
+                                     // initialValue: userData.cep,
+                                      // onChanged: (value) => txtCep = value,
                                       style:
                                           Theme.of(context).textTheme.bodyText2,
                                       decoration: InputDecoration(
