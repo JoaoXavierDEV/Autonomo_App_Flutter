@@ -1,5 +1,4 @@
 import 'package:autonomo_app/botoes.dart';
-import 'package:autonomo_app/components/AnimationFluttie_widget.dart';
 import 'package:autonomo_app/components/SplashScreen.dart';
 import 'package:autonomo_app/components/bottomNavigationBar.dart';
 import 'package:autonomo_app/pages/login/signup/step01/signup_view.dart';
@@ -62,6 +61,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: whiteColor,
           primaryColor: corBarraNavegacao, // podem ser sobscritas
           accentColor: Colors.blue[800], //
+          buttonColor: azulMtEscuro,
 
           primarySwatch: Colors.blue,
           brightness: Brightness.light,
@@ -232,10 +232,9 @@ class MyApp extends StatelessWidget {
         ).copyWith(),
         themeMode: ThemeMode.system,
         // home:  Whapper(),
-        initialRoute: '/signup2',
+        initialRoute: '/whapper',
         routes: <String, WidgetBuilder>{
           '/splash': (BuildContext context) => SplashScreen(),
-          '/flutie': (BuildContext context) => AnimationFluttieWidget(),
           '/whapper': (BuildContext context) => Whapper(),
           '/home': (BuildContext context) => HomePage(),
           '/signup': (BuildContext context) => SignupPage(),

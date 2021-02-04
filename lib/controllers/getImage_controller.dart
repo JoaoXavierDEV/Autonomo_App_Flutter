@@ -1,32 +1,32 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
 
 final StreamController _blocController = StreamController.broadcast();
 final getImagePicker = new ImagePicker();
 
 class GetImageController {
-  PickedFile newImage;
+  File image;
   Sink get input => _blocController.sink;
   Stream get output => _blocController.stream;
 
   getImageGallery() async {
-    newImage = await getImagePicker.getImage(
+    image = await ImagePicker.pickImage(
       source: ImageSource.gallery,
       imageQuality: 50,
     );
 
     print("GET-IMAGE-CONTROLLER");
-    input.add(newImage);
+    input.add(image);
   }
 
   getImageCamera() async {
-    newImage = await getImagePicker.getImage(
+    image = await ImagePicker.pickImage(
       source: ImageSource.camera,
       imageQuality: 50,
     );
-    input.add(newImage);
-    //  input.close();
+
+    input.add(image);
   }
 
   dispose() {

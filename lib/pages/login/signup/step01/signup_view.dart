@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:autonomo_app/components/botao_widget.dart';
 import 'package:cpf_cnpj_validator/cpf_validator.dart';
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:page_transition/page_transition.dart';
 
 import 'package:autonomo_app/components/temas/temas.dart';
 import 'package:autonomo_app/components/testePlanodeFundo.dart';
@@ -20,17 +17,16 @@ import 'package:autonomo_app/pages/login/signup/step02/signup_view2.dart';
 
 class SignupPage extends StatefulWidget {
   final Function toggleView;
-  final UserData user;
+
   const SignupPage({
     Key key,
     this.toggleView,
-    this.user,
   }) : super(key: key);
   @override
   _SignupPageState createState() => _SignupPageState();
 }
 
-UserData userData = UserData();
+// UserData userData = UserData();
 
 TextEditingController txtNomeCompleto = new TextEditingController();
 TextEditingController txtEmail = new TextEditingController();
@@ -52,7 +48,7 @@ class _SignupPageState extends State<SignupPage>
 
   PickedFile imagemController;
 
-  final _controllerGetImage = GetImageController();
+  final GetImageController _controllerGetImage = GetImageController();
   @override
   void initState() {
     super.initState();
@@ -422,19 +418,23 @@ class _SignupPageState extends State<SignupPage>
 
                                     print(txtSenha.text);
 
-                                    if (_controllerGetImage.newImage != null) {
+                                    if (_controllerGetImage.image != null) {
                                       if (_formKey.currentState.validate()) {
                                         Navigator.push(
-                                          context,
-                                          PageTransition(
-                                            duration:
-                                                Duration(milliseconds: 200),
-                                            type: PageTransitionType.fade,
-                                            child: SignupPage2(
-                                              dadosModel: userData,
-                                            ),
-                                          ),
-                                        );
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: ((context) =>
+                                                    SignupPage2(
+                                                      nomeCompleto:
+                                                          txtNomeCompleto.text,
+                                                      cpf: txtCpf.text,
+                                                      datanasc: txtNewDataNasc,
+                                                      email: txtEmail.text,
+                                                      senha: txtSenha.text,
+                                                      fotoPerfil:
+                                                          _controllerGetImage
+                                                              .image,
+                                                    ))));
                                       } else {}
                                       // await DatabaseService(uid: user.uid).uploadFile(_image);
                                     } else {

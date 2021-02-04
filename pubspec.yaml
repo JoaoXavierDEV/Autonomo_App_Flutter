@@ -44,10 +44,6 @@ dependencies:
   line_awesome_flutter: 1.0.1
   fluentui_icons: ^0.2.0
   flare_flutter: ^2.0.6
-  page_transition: "^1.1.6"
-  flutter_lottie: ^0.2.0
-  lottie: ^0.6.0
-  intro_views_flutter: ^2.8.2
 
 
 

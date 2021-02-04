@@ -3,6 +3,7 @@ import 'package:autonomo_app/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class DatabaseService extends ChangeNotifier {
   final String uid;
@@ -18,7 +19,7 @@ class DatabaseService extends ChangeNotifier {
   Future updateUserData(
     String nome,
     String email,
-    String sobrenome,
+    String datanasc,
     String cpf,
     String telefone,
     Map endereco,
@@ -27,8 +28,8 @@ class DatabaseService extends ChangeNotifier {
     return await perfilColecao.document(uid).setData({
       'nome': nome,
       'email': email,
-      'sobrenome': sobrenome,
-      'subcategoria': cpf,
+      'datanasc': datanasc,
+      'cpf': cpf,
       'telefone': telefone,
       'endereco': endereco,
       'bio': bio,
@@ -79,7 +80,7 @@ class DatabaseService extends ChangeNotifier {
     });
   }
 
-  // Enviando a imagem
+  // Enviando a imagem File
   Future uploadFile(File file) async {
     var storageRef = _storage.ref().child("Usuarios/$uid/Perfil/Foto");
     var uploadTask = storageRef.putFile(file);

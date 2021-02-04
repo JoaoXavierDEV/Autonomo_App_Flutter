@@ -59,8 +59,8 @@ class _TabNavBarState extends State<TabNavBar>
   List<Widget> _tabList = [
     HomePage(),
 
-    TestesLayout(),
-    //Search(),
+    //TestesLayout(),
+    Search(),
     ProfileView(),
     //LoginPage(),
   ];
@@ -85,7 +85,7 @@ class _TabNavBarState extends State<TabNavBar>
           child: TabBar(
             indicatorWeight: 2,
             labelColor: Colors.white,
-            unselectedLabelColor: Colors.blueGrey[300],
+            unselectedLabelColor: Colors.white30,
             controller: tabController,
             indicatorColor: Colors.white,
             tabs: <Widget>[

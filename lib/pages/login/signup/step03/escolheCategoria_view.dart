@@ -1,27 +1,38 @@
-import 'dart:io';
-import 'package:autonomo_app/components/loadingButton_widget.dart';
+import 'package:autonomo_app/models/user.dart';
+import 'package:autonomo_app/services/auth.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
-import 'package:autonomo_app/components/AnimationFluttie_widget.dart';
 import 'package:autonomo_app/components/temas/temas.dart';
-import 'package:autonomo_app/models/user.dart';
-
+import 'package:autonomo_app/pages/login/signup/step01/signup_view.dart';
 import 'package:autonomo_app/services/NomeCat_service.dart';
-
+import 'package:autonomo_app/services/database.dart';
 import 'package:autonomo_app/styles/loading.dart';
 
 class EscolheCategoriaView extends StatefulWidget {
-  final UserData meusDados;
-  final bool busy;
-  final Function func;
+  // tela 01
+  final File fotoPerfil;
+  final String nomeCompleto;
+  final String email;
+  final String senha;
+  final DateTime datanasc;
+  final String cpf;
+  // tela 02
+  final String telefone;
+  final Map endereco;
 
   const EscolheCategoriaView({
     Key key,
-    this.meusDados,
-    this.busy = false,
-    this.func,
+    this.fotoPerfil,
+    this.nomeCompleto,
+    this.email,
+    this.senha,
+    this.datanasc,
+    this.cpf,
+    this.telefone,
+    this.endereco,
   }) : super(key: key);
 
   @override
@@ -37,6 +48,8 @@ class _EscolheCategoriaViewState extends State<EscolheCategoriaView> {
     super.initState();
     _future = criarListas();
   }
+
+  var _auth = AuthService();
 
   Future<Map<String, Map<String, bool>>> _future;
 
@@ -91,25 +104,29 @@ class _EscolheCategoriaViewState extends State<EscolheCategoriaView> {
     ////////////////////////////////////////////////////////////////////////////////////////
 
     return Scaffold(
-      floatingActionButton:
-          /*LoadingButton(
-        busy: widget.busy,
-        func: widget.func,
-      ),*/
-
-          FloatingActionButton.extended(
-        icon: Icon(Icons.arrow_forward),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(
+          Icons.check,
+          size: 32,
+        ),
         label: Text("Concluir"),
         onPressed: () async {
-          // print(" ---- PAGE 3 " + widget.meusDados.nome);
-          // print(" ---- PAGE 3 " + widget.meusDados.telefone);
-          /*
-          if (_dadosFirebaseFinal.isEmpty) {
-            EscolheCategoriaController().alertUnselectedCategoria(context);
-          } else {
+          if (_dadosFirebaseFinal.isNotEmpty) {
+            dynamic user = await _auth.registerWithEmailAndPassword(
+                widget.email, widget.senha);
+
+            await DatabaseService(uid: user.uid).updateUserData(
+                widget.nomeCompleto,
+                widget.email,
+                widget.datanasc.toString(),
+                widget.cpf,
+                widget.telefone,
+                widget.endereco,
+                "Insira sua bio aqui");
             await DatabaseService(uid: user.uid)
                 .categoriaUserData(_dadosFirebaseFinal);
-          }*/
+            await DatabaseService(uid: user.uid).uploadFile(widget.fotoPerfil);
+          }
         },
       ),
       appBar: AppBar(

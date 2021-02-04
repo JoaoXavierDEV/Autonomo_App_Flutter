@@ -1,7 +1,9 @@
 import 'package:autonomo_app/components/bottomNavigationBar.dart';
+import 'package:autonomo_app/components/temas/temas.dart';
 import 'package:autonomo_app/models/user.dart';
 import 'package:autonomo_app/services/auth.dart';
 import 'package:autonomo_app/services/database.dart';
+import 'package:autonomo_app/styles/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:ui' as prefix0;
@@ -16,16 +18,65 @@ class _ProfileViewState extends State<ProfileView> {
   final AuthService _auth = AuthService();
 
   TextEditingController txtEndereco = new TextEditingController();
+  dynamic fotoNova;
 
-  final fotoPerfil = AssetImage("lib/images/arquivo1.jpg");
+  //final fotoPerfil = AssetImage("lib/images/fotoPerfil/arquivo1.jpg");
+
+  brilhoApp() {
+    String temaApp = Theme.of(context).brightness.toString();
+    if (temaApp == "Brightness.dark") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getAllDados() {
+    final user = Provider.of<User>(context);
+    dynamic dados = DatabaseService(uid: user.uid).userData;
+    return dados;
+  }
+
+  corApp() => brilhoApp() ? Colors.grey[700] : Colors.grey[300];
+
+  @override
+  void initState() {
+    super.initState();
+    // getFotoPerfil();
+  }
+
+  getFotoPerfil() async {
+    final user = Provider.of<User>(context);
+    final fotoPerfil = DatabaseService(uid: user.uid).getUserProfileImages();
+    await fotoPerfil.then((value) {
+      fotoNova = value;
+    });
+    return fotoNova;
+  }
+
+  String cepFOR;
+  String enderecoFOR;
+  String localidadeFOR;
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
+
     return StreamBuilder(
-      stream: DatabaseService(uid: user.uid).userData,
+      stream: getAllDados(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           UserData userData = snapshot.data;
+          userData.endereco.forEach((key, value) {
+            if (key == "logradouro") {
+              enderecoFOR = value;
+            }
+            if (key == "cep") {
+              cepFOR = value;
+            }
+            if (key == "localidade") {
+              localidadeFOR = value;
+            }
+          });
 
           String txtTelefone = userData.telefone;
           String txtBio = userData.bio;
@@ -59,16 +110,20 @@ class _ProfileViewState extends State<ProfileView> {
                 // fit: StackFit.loose,
                 children: [
                   Positioned.fill(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        //border: Border.all(style: BorderStyle.solid),
-                        shape: BoxShape.rectangle,
-                        image: DecorationImage(
-                          image: fotoPerfil,
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                    ),
+                    child: FutureBuilder<Object>(
+                        future: getFotoPerfil(),
+                        builder: (context, snapshot) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              //border: Border.all(style: BorderStyle.solid),
+                              shape: BoxShape.rectangle,
+                              image: DecorationImage(
+                                image: NetworkImage(fotoNova),
+                                fit: BoxFit.fitHeight,
+                              ),
+                            ),
+                          );
+                        }),
                   ),
                   BackdropFilter(
                     filter: prefix0.ImageFilter.blur(sigmaX: 5, sigmaY: 5),
@@ -129,23 +184,27 @@ class _ProfileViewState extends State<ProfileView> {
                                 Padding(
                                   padding:
                                       const EdgeInsets.only(top: 8, right: 0),
-                                  child: Container(
-                                    width: 120.0,
-                                    height: 120.0,
-                                    decoration: new BoxDecoration(
-                                      color: const Color(0xFF000000),
-                                      image: new DecorationImage(
-                                        image: fotoPerfil,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(150.0)),
-                                      border: Border.all(
-                                        color: Colors.lightGreen[700],
-                                        width: 5.0,
-                                      ),
-                                    ),
-                                  ),
+                                  child: FutureBuilder<Object>(
+                                      future: getFotoPerfil(),
+                                      builder: (context, snapshot) {
+                                        return Container(
+                                          width: 120.0,
+                                          height: 120.0,
+                                          decoration: BoxDecoration(
+                                            color: const Color(0xFF000000),
+                                            image: new DecorationImage(
+                                              image: NetworkImage(fotoNova),
+                                              fit: BoxFit.cover,
+                                            ),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(150.0)),
+                                            border: Border.all(
+                                              color: Colors.lightGreen[700],
+                                              width: 5.0,
+                                            ),
+                                          ),
+                                        );
+                                      }),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 10.0),
@@ -160,10 +219,14 @@ class _ProfileViewState extends State<ProfileView> {
                                           Padding(
                                             padding:
                                                 const EdgeInsets.only(top: 0.0),
-                                            child: Text(userData.nome,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline5),
+                                            child: Text(
+                                              userData.nome.split(" ")[0] +
+                                                  " " +
+                                                  userData.nome.split(" ")[1],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline5,
+                                            ),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
@@ -223,7 +286,7 @@ class _ProfileViewState extends State<ProfileView> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextFormField(
                                       // onChanged: (value) => txtEndereco = value,
-                                      // initialValue: txtEndereco,
+                                      initialValue: enderecoFOR,
                                       style:
                                           Theme.of(context).textTheme.bodyText2,
                                       //controller: txtEndereco,
@@ -238,9 +301,9 @@ class _ProfileViewState extends State<ProfileView> {
                                         ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Theme.of(context)
-                                                  .dividerColor,
-                                              width: 1.0),
+                                            color: corApp(),
+                                            width: 1.0,
+                                          ),
                                         ),
                                         hintStyle:
                                             TextStyle(color: Colors.white),
@@ -252,7 +315,38 @@ class _ProfileViewState extends State<ProfileView> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextFormField(
-                                     // initialValue: userData.cep,
+                                      // onChanged: (value) => txtEndereco = value,
+                                      initialValue: localidadeFOR,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText2,
+                                      //controller: txtEndereco,
+                                      decoration: InputDecoration(
+                                        floatingLabelBehavior:
+                                            FloatingLabelBehavior.auto,
+                                        //    icon: Icon(Icons.edit),
+                                        //suffixIcon: Icon(Icons.remove_red_eye),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.blue, width: 3.0),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: corApp(),
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                        hintStyle:
+                                            TextStyle(color: Colors.white),
+                                        hintText: 'Localidade',
+                                        fillColor: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: TextFormField(
+                                      initialValue: cepFOR,
+
                                       // onChanged: (value) => txtCep = value,
                                       style:
                                           Theme.of(context).textTheme.bodyText2,
@@ -265,9 +359,7 @@ class _ProfileViewState extends State<ProfileView> {
                                         ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Theme.of(context)
-                                                  .dividerColor,
-                                              width: 1.0),
+                                              color: corApp(), width: 1.0),
                                         ),
                                         hintStyle:
                                             TextStyle(color: Colors.white),
@@ -293,9 +385,7 @@ class _ProfileViewState extends State<ProfileView> {
                                         ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: Theme.of(context)
-                                                  .dividerColor,
-                                              width: 1.0),
+                                              color: corApp(), width: 1.0),
                                         ),
                                         hintStyle:
                                             TextStyle(color: Colors.white),
@@ -322,8 +412,7 @@ class _ProfileViewState extends State<ProfileView> {
                                         ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color:
-                                                Theme.of(context).dividerColor,
+                                            color: corApp(),
                                             width: 1.0,
                                           ),
                                         ),
@@ -383,11 +472,25 @@ class _ProfileViewState extends State<ProfileView> {
               ),
             ),
           );
+        } else if (snapshot.error) {
+          return Container(
+            // color: Colors.white,
+            child: Center(
+              child: Loading(),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Container(
+            // color: Colors.white,
+            child: Center(
+              child: Loading(),
+            ),
+          );
         } else {
           return Container(
-            color: Colors.white,
+            // color: Colors.white,
             child: Center(
-              child: CircularProgressIndicator(),
+              child: Loading(),
             ),
           );
         }

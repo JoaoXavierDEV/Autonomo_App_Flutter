@@ -1,11 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
-
-import 'package:autonomo_app/controllers/buscaCep.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -15,10 +11,20 @@ import 'package:autonomo_app/models/user.dart';
 import 'package:autonomo_app/pages/login/signup/step03/escolheCategoria_view.dart';
 
 class SignupPage2 extends StatefulWidget {
-  final UserData dadosModel;
+  final File fotoPerfil;
+  final String nomeCompleto;
+  final String email;
+  final String senha;
+  final DateTime datanasc;
+  final String cpf;
   const SignupPage2({
     Key key,
-    this.dadosModel,
+    this.fotoPerfil,
+    this.nomeCompleto,
+    this.email,
+    this.senha,
+    this.datanasc,
+    this.cpf,
   }) : super(key: key);
   @override
   _SignupPage2State createState() => _SignupPage2State();
@@ -37,15 +43,13 @@ var formaterTelefone = new MaskTextInputFormatter(mask: '(##) # ####-####');
 var formaterCep = new MaskTextInputFormatter(mask: '#####-###');
 
 class _SignupPage2State extends State<SignupPage2> {
-  final User user = User();
-  final UserData userData = UserData();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
   String resultado;
   bool exibeCampos = false;
   Map resultCepMap = {};
   CepModel retorno;
-/*
+
   Future buscaCep(String cep) async {
     if (cep.length == 9) {
       var response = await http.get('https://viacep.com.br/ws/$cep/json/');
@@ -56,16 +60,12 @@ class _SignupPage2State extends State<SignupPage2> {
         return resposta;
       } else if (response.statusCode == 400) {
         print("valor inválido para cep");
-        setState(() {
-          exibeCampos = false;
-        });
+        setState(() {});
         return "false";
         // throw Exception('Requisição inválida!');
       }
     } else {
-      setState(() {
-        exibeCampos = false;
-      });
+      setState(() {});
       return "false";
     }
   }
@@ -79,16 +79,17 @@ class _SignupPage2State extends State<SignupPage2> {
         resultCepMap.remove('gia');
         resultCepMap.remove('erro');
 
+        resultCepMap['complemento'] = txtComplemento.text;
+        resultCepMap['numero'] = txtNumCasa.text;
+
         txtrua.text = retorno.logradouro;
         txtMunicipio.text = retorno.localidade;
         txtBairro.text = retorno.bairro;
         txtEstado.text = retorno.uf;
-        txtComplemento.text = "";
-        txtNumCasa.text = "";
+        // = "";
+        //  = "";
 
-        setState(() {
-          exibeCampos = true;
-        });
+        setState(() {});
         return null;
       } else if (retorno.erro == true) {
         resultCepMap = {};
@@ -100,9 +101,7 @@ class _SignupPage2State extends State<SignupPage2> {
         txtComplemento.text = "";
         txtNumCasa.text = "";
 
-        setState(() {
-          exibeCampos = false;
-        });
+        setState(() {});
         String texto = "CEP inválido";
         return texto;
       } else {
@@ -112,12 +111,10 @@ class _SignupPage2State extends State<SignupPage2> {
       return "CEP vazio";
     }
   }
-*/
-  final blocCep = BuscaCepBloc();
+
   @override
   void dispose() {
     super.dispose();
-    blocCep.dispose();
   }
 
   @override
@@ -134,8 +131,8 @@ class _SignupPage2State extends State<SignupPage2> {
         ),
         centerTitle: true,
         elevation: 0,
-        //brightness: Brightness.dark,
-        // backgroundColor: azulMtEscuro,
+        brightness: Brightness.dark,
+        backgroundColor: azulMtEscuro,
         title: Text(
           "Complete seu cadastro",
           style: Theme.of(context)
@@ -156,7 +153,8 @@ class _SignupPage2State extends State<SignupPage2> {
                 // height: 150,
                 child: Center(
                   child: Text(
-                    "Olá ${widget.nomeCompleto.split(" ")[0]}!",
+                    //"Olá ${widget.nomeCompleto.split(" ")[0]}!",
+                    "Olá ${widget.dadosModel.nome.split(" ")[0]}!",
                     style: TextStyle(color: Colors.white, fontSize: 50),
                   ),
                 ),
@@ -180,10 +178,10 @@ class _SignupPage2State extends State<SignupPage2> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      "Insira suas informações de contato e endereço.",
+                      "Olá ${widget.nomeCompleto.split(" ")[0]}! Insira suas informações de contato e endereço.",
                       style: TextStyle(
                         fontSize: 26,
-                        color: azulMtEscuro,
+                        color: Colors.white,
                       ),
                     ),
                     TextFormField(
@@ -199,93 +197,60 @@ class _SignupPage2State extends State<SignupPage2> {
                     TextFormField(
                       controller: txtCep,
                       keyboardType: TextInputType.phone,
-                      /*  validator: (value) {
-                        return validaCep(retorno);
-                      },*/
                       inputFormatters: [formaterCep],
                       decoration: InputDecoration(
                         labelText: "CEP",
                       ),
-                      // onChanged: (cep) => blocCep.url(cep),
                       onChanged: (cep) {
-                        blocCep.input.add(cep);
+                        buscaCep(cep);
                       },
-                      validator: (value) => blocCep.resposta,
+                      validator: (value) => validaCep(retorno),
                     ),
-                    StreamBuilder(
-                        initialData: CepModel(),
-                        stream: blocCep.output,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            CepModel model = snapshot.data;
-                            txtrua.text = model.logradouro;
-                            txtBairro.text = model.bairro;
-                            txtEstado.text = model.uf;
-                            txtMunicipio.text = model.localidade;
-                            return Container(
-                                child: Column(children: <Widget>[
-                              TextFormField(
-                                decoration: InputDecoration(
-                                  labelText: "Endereco",
-                                ),
-                                controller: txtrua,
-                              ),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                  labelText: "Número",
-                                ),
-                                controller: txtNumCasa,
-                                onChanged: (value) {
-                                  resultCepMap['numero'] = value;
-                                  print(resultCepMap);
-                                },
-                              ),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                  labelText: "Complemento",
-                                ),
-                                controller: txtComplemento,
-                                onChanged: (value) {
-                                  resultCepMap['complemento'] = value;
-                                  print(resultCepMap);
-                                },
-                              ),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                  labelText: "Bairro",
-                                ),
-                                controller: txtBairro,
-                              ),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                  labelText: "Município",
-                                ),
-                                controller: txtMunicipio,
-                              ),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                  labelText: "Estado",
-                                ),
-                                controller: txtEstado,
-                              ),
-                            ]));
-                          } else if (snapshot.hasError) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                child: Text(
-                                  "Falha na conexão",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w900),
-                                ),
-                              ),
-                            );
-                          } else {
-                            return Container();
-                          }
-                        }),
+                    Container(
+                        child: Column(children: <Widget>[
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: "Endereco",
+                        ),
+                        controller: txtrua,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: "Número",
+                        ),
+                        controller: txtNumCasa,
+                        onChanged: (value) {
+                          resultCepMap['numero'] = value;
+                        },
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: "Complemento",
+                        ),
+                        controller: txtComplemento,
+                        onChanged: (value) {
+                          resultCepMap['complemento'] = value;
+                        },
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: "Bairro",
+                        ),
+                        controller: txtBairro,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: "Município",
+                        ),
+                        controller: txtMunicipio,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: "Estado",
+                        ),
+                        controller: txtEstado,
+                      ),
+                    ])),
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0, bottom: 50),
                       child: RaisedButton(
@@ -335,13 +300,19 @@ class _SignupPage2State extends State<SignupPage2> {
                               context,
                               MaterialPageRoute(
                                 builder: ((context) => EscolheCategoriaView(
-                                    //   meusDados: widget.dadosModel,
+                                      nomeCompleto: widget.nomeCompleto,
+                                      cpf: widget.cpf,
+                                      datanasc: widget.datanasc,
+                                      email: widget.email,
+                                      senha: widget.senha,
+                                      endereco: resultCepMap,
+                                      telefone: txtTelefone.text,
+                                      fotoPerfil: widget.fotoPerfil,
                                     )),
                               ),
                             );
                           }
 
-                          // Navigator.pushNamed(context, "/botoes");
                           // await DatabaseService(uid: user.uid).uploadFile(_image);
                         },
                       ),

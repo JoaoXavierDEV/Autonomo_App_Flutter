@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:autonomo_app/pages/login/resetpassword/reset_password_page.dart';
 import 'package:autonomo_app/styles/loading.dart';
 import 'package:autonomo_app/services/auth.dart';
-import 'package:page_transition/page_transition.dart';
 
 class LoginPage extends StatefulWidget {
   final Function toggleView;
@@ -239,12 +238,8 @@ class _LoginPageState extends State<LoginPage> {
                               // Navigator.push(context, MaterialPageRoute(builder: (context) => SignupPage(),));
                               Navigator.push(
                                 context,
-                                PageTransition(
-                                  duration: Duration(milliseconds: 400),
-                                  alignment: Alignment.center,
-                                  type: PageTransitionType.fade,
-                                  child: SignupPage(),
-                                ),
+                                MaterialPageRoute(
+                                    builder: ((context) => SignupPage())),
                               );
                               // widget.toggleView();
                             },

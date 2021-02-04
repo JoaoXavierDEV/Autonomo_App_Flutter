@@ -1,16 +1,25 @@
-# autonomo_app
 
-## A new **Flutter** project.
 
-## Getting Started
+# Autonomo_App
 
-This project is a starting point for a Flutter application.
+## Um projeto em **Flutter**.
 
-A few resources to get you started if this is your first Flutter project:
+<p align="left">Flutter é um kit de desenvolvimento de interface de usuário, de código aberto, criado pelo Google, que possibilita a criação de aplicativos compilados nativamente. Atualmente pode compilar para Android, iOS, Windows, Mac, Linux, Google Fuchsia e Web. A linguagem utilizada para desenvolvimento é o Dart.
+</p>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```dart
+main() {
+  print('Hello World!');
+}
+```
+
+   ## Descrição do Projeto 
+   <p align="left">App desenvolvido para unir pessoas autônomas a pessoas que buscam algum tipo de serviço </p>
+
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/40217599/106942876-70cd5600-6703-11eb-9678-6ca90d7bf915.gif" width="300">
+ &nbsp &nbsp  &nbsp &nbsp
+<img src="https://user-images.githubusercontent.com/40217599/106943067-b2f69780-6703-11eb-8413-7e62ba4d6643.gif" width="300">
+</div>
