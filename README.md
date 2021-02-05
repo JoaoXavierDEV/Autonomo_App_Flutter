@@ -19,11 +19,11 @@
 **Tela de login e HomeScreen**
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/40217599/107046738-bc384080-67a5-11eb-8f54-103ed1372d38.png" height="600">
+<img src="https://user-images.githubusercontent.com/40217599/107046738-bc384080-67a5-11eb-8f54-103ed1372d38.png" height="400">
  &nbsp
-<img src="https://user-images.githubusercontent.com/40217599/107050610-2f43b600-67aa-11eb-9500-491f5f3950d9.png" height="600">
+<img src="https://user-images.githubusercontent.com/40217599/107050610-2f43b600-67aa-11eb-9500-491f5f3950d9.png" height="400">
  &nbsp
-<img src="https://user-images.githubusercontent.com/40217599/107050643-3f5b9580-67aa-11eb-90a4-7c7a3a06e12a.png" height="600"> 
+<img src="https://user-images.githubusercontent.com/40217599/107050643-3f5b9580-67aa-11eb-90a4-7c7a3a06e12a.png" height="400"> 
 
 </div>
 
@@ -33,11 +33,11 @@
 <p>O usuário entra com seus dados pessoais, foto, endereço e finaliza inserindo seus serviços. 
 </p>
 <div align="center">
-<img src="https://user-images.githubusercontent.com/40217599/107040576-2b119b80-679e-11eb-9fe4-b4c917b82b8a.png" height="600">
+<img src="https://user-images.githubusercontent.com/40217599/107040576-2b119b80-679e-11eb-9fe4-b4c917b82b8a.png" height="300">
  &nbsp
- <img src="https://user-images.githubusercontent.com/40217599/107040720-63b17500-679e-11eb-945c-f07f497a8e7e.png" height="600">
+ <img src="https://user-images.githubusercontent.com/40217599/107040720-63b17500-679e-11eb-945c-f07f497a8e7e.png" height="300">
  &nbsp
-<img src="https://user-images.githubusercontent.com/40217599/106942876-70cd5600-6703-11eb-9678-6ca90d7bf915.gif" height="600">
+<img src="https://user-images.githubusercontent.com/40217599/106942876-70cd5600-6703-11eb-9678-6ca90d7bf915.gif" height="300">
  &nbsp
 
 </div>
@@ -45,11 +45,11 @@
 
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/40217599/107040642-4381b600-679e-11eb-96bf-0938d3197f6f.png" height="600">
+<img src="https://user-images.githubusercontent.com/40217599/107040642-4381b600-679e-11eb-96bf-0938d3197f6f.png" height="500">
   &nbsp
-<img src="https://user-images.githubusercontent.com/40217599/107040680-54cac280-679e-11eb-8d4a-4d96eef53c3f.png" height="600">
+<img src="https://user-images.githubusercontent.com/40217599/107040680-54cac280-679e-11eb-8d4a-4d96eef53c3f.png" height="500">
  &nbsp
-<img src="https://user-images.githubusercontent.com/40217599/106943067-b2f69780-6703-11eb-8413-7e62ba4d6643.gif" height="600">
+<img src="https://user-images.githubusercontent.com/40217599/106943067-b2f69780-6703-11eb-8413-7e62ba4d6643.gif" height="500">
  &nbsp
 </div>
 
